@@ -35,11 +35,15 @@ struct ContactsFeature {
                 )
                 return .none
                 
-            case .addContact(.presented(.cancelButtonTapped)):
-                guard let contact = state.addContact?.contact
-                else { return .none }
+//            case .addContact(.presented(.delegate(.cancel))):
+//                state.addContact = nil
+//                return .none
+                
+            case .addContact(.presented(.delegate(.saveContact(let contact)))):
+//                guard let contact = state.addContact?.contact
+//                else { return .none }
                 state.contacts.append(contact)
-                state.addContact = nil
+//                state.addContact = nil
                 return .none
                 
             case .addContact:
@@ -54,7 +58,7 @@ struct ContactsFeature {
 
  
 struct ContactsView: View {
-    let store: StoreOf<ContactsFeature>
+    @Bindable var store: StoreOf<ContactsFeature>
     
     var body: some View {
         NavigationStack {
@@ -72,6 +76,12 @@ struct ContactsView: View {
                         Image(systemName: "plus")
                     }
                 }
+            }
+            .sheet(item: $store.scope(
+                state: \.addContact,
+                action: \.addContact
+            )) { addContactStore in
+                AddContactView(store: addContactStore)
             }
         }
     }
