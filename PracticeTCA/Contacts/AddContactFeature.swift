@@ -77,7 +77,7 @@ struct AddContactView: View {
     AddContactView(
       store: Store(
         initialState: AddContactFeature.State(
-          contact: Contact(name: "Blob")
+            contact: Contact(id: UUID(), name: "Blob")
         )
       ) {
         AddContactFeature()

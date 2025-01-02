@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct Contact: Equatable, Identifiable {
-    let id = UUID()
+    let id: UUID
     var name: String
 }
 
@@ -35,12 +35,14 @@ struct ContactsFeature {
         }
     }
     
+    @Dependency(\.uuid) var uuid
+    
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .addButtonTapped:
                 state.destination = .addContact(
-                    AddContactFeature.State(contact: Contact(name: ""))
+                    AddContactFeature.State(contact: Contact(id: uuid(), name: ""))
                 )
 //                state.addContact = AddContactFeature.State(
 //                    contact: Contact(name: "")
@@ -174,9 +176,9 @@ struct ContactsView: View {
     store: Store(
       initialState: ContactsFeature.State(
         contacts: [
-          Contact(name: "Blob"),
-          Contact(name: "Blob Jr"),
-          Contact(name: "Blob Sr"),
+            Contact(id: UUID(), name: "Blob"),
+            Contact(id: UUID(), name: "Blob Jr"),
+            Contact(id: UUID(), name: "Blob Sr"),
         ]
       )
     ) {
