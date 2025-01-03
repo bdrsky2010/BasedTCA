@@ -30,6 +30,7 @@ struct ContactsFeature {
         case destination(PresentationAction<Destination.Action>)
         case deleteButtonTapped(id: Contact.ID)
         
+        @CasePathable
         enum Alert: Equatable {
             case confirmDeletion(id: Contact.ID)
         }
