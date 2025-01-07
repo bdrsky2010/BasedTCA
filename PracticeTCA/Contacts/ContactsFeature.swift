@@ -19,8 +19,9 @@ struct ContactsFeature {
     struct State: Equatable {
 //        @Presents var addContact: AddContactFeature.State?
 //        @Presents var alert: AlertState<Action.Alert>?
-        @Presents var destination: Destination.State?
         var contacts: IdentifiedArrayOf<Contact> = []
+        @Presents var destination: Destination.State?
+        var path = StackState<ContactDetailFeature.State>()
     }
     
     enum Action {

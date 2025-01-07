@@ -12,6 +12,7 @@ import ComposableArchitecture
 struct PracticeTCAApp: App {
     static let store = Store(initialState: AppFeature.State()) {
         AppFeature()
+//    }
             ._printChanges()
     }
     
